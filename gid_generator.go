@@ -18,7 +18,13 @@ type DefaultUidGenerator struct {
 func NewUidGenerator(config Config) *DefaultUidGenerator {
 
 	idAssigner := worker.NewWorkerIdAssigner(config)
+
+	allocator := NewBitsAllocator(config.GetTimeBits(), config.GetWorkerBits(), config.GetSeqBits())
 	workerId := idAssigner.AssignWorkerId()
+
+	if workerId > allocator.MaxWorkerId {
+		workerId = workerId % allocator.MaxWorkerId
+	}
 
 	workerNodeService := service.NewWorkerNodeService(config.GetDB())
 	return &DefaultUidGenerator{
