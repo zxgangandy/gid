@@ -1,4 +1,4 @@
-package gid
+package config
 
 import "os"
 

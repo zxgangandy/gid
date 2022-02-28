@@ -1,10 +1,8 @@
-package gid
+package config
 
 import "gorm.io/gorm"
 
-type Config interface {
-	GetHostName() string
-
+type UidConfig interface {
 	GetDB() *gorm.DB
 
 	GetPort() string

@@ -1,7 +1,7 @@
 package worker
 
 import (
-	"gid"
+	"gid/config"
 	"gid/worker/model"
 	"gid/worker/service"
 	"time"
@@ -13,10 +13,10 @@ type IdAssigner interface {
 
 type DisposableWorkerIdAssigner struct {
 	workerNodeService service.IWorkerNodeService
-	config            gid.Config
+	config            config.UidConfig
 }
 
-func NewWorkerIdAssigner(config gid.Config) *DisposableWorkerIdAssigner {
+func NewWorkerIdAssigner(config config.UidConfig) *DisposableWorkerIdAssigner {
 	workerNodeService := service.NewWorkerNodeService(config.GetDB())
 	return &DisposableWorkerIdAssigner{
 		workerNodeService: workerNodeService,
@@ -25,7 +25,8 @@ func NewWorkerIdAssigner(config gid.Config) *DisposableWorkerIdAssigner {
 }
 
 func (d *DisposableWorkerIdAssigner) AssignWorkerId() int64 {
-	node, err := d.workerNodeService.GetByHostname(d.config.GetHostName())
+	newNode := d.buildWorkerNode(d.config.GetPort())
+	node, err := d.workerNodeService.GetByHostname(newNode.HostName)
 	if err != nil {
 		panic(err)
 	}
@@ -34,7 +35,6 @@ func (d *DisposableWorkerIdAssigner) AssignWorkerId() int64 {
 		return node.Id
 	}
 
-	newNode := d.buildWorkerNode(d.config)
 	_, saveErr := d.workerNodeService.Save(newNode)
 	if saveErr != nil {
 		panic(saveErr)
@@ -43,20 +43,20 @@ func (d *DisposableWorkerIdAssigner) AssignWorkerId() int64 {
 	return newNode.Id
 }
 
-func (d *DisposableWorkerIdAssigner) buildWorkerNode(config gid.Config) *model.WorkerNode {
+func (d *DisposableWorkerIdAssigner) buildWorkerNode(port string) *model.WorkerNode {
 	node := &model.WorkerNode{
 		Type:       ACTUAL,
 		LaunchDate: time.Now(),
 	}
 
-	if gid.IsDocker {
-		node.HostName = gid.DockerHost
-		node.Port = gid.DockerPort
+	if config.IsDocker {
+		node.HostName = config.DockerHost
+		node.Port = config.DockerPort
 		node.Type = CONTAINER
 	} else {
 		node.Type = ACTUAL
-		node.HostName = gid.HostName
-		node.Port = config.GetPort()
+		node.HostName = config.HostName
+		node.Port = port
 	}
 
 	return node

@@ -3,7 +3,10 @@ package gid
 import (
 	"errors"
 	"fmt"
+	"gid/config"
 	"gid/worker"
+
+	//"gid/worker"
 	"sync"
 	"time"
 )
@@ -17,14 +20,14 @@ type UidGenerator interface {
 type DefaultUidGenerator struct {
 	workerIdAssigner worker.IdAssigner
 	bitsAllocator    *BitsAllocator
-	config           Config
+	config           config.UidConfig
 	mutex            sync.Mutex
 	workerId         int64
 	lastSecond       int64
 	sequence         int64
 }
 
-func New(config Config) *DefaultUidGenerator {
+func New(config config.UidConfig) *DefaultUidGenerator {
 	idAssigner := worker.NewWorkerIdAssigner(config)
 	allocator := NewBitsAllocator(config.GetTimeBits(), config.GetWorkerBits(), config.GetSeqBits())
 	workerId := idAssigner.AssignWorkerId()
