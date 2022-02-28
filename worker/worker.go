@@ -8,7 +8,7 @@ import (
 )
 
 type IdAssigner interface {
-	AssignWorkerId() uint64
+	AssignWorkerId() int64
 }
 
 type DisposableWorkerIdAssigner struct {
@@ -24,7 +24,7 @@ func NewWorkerIdAssigner(config gid.Config) *DisposableWorkerIdAssigner {
 	}
 }
 
-func (d *DisposableWorkerIdAssigner) AssignWorkerId() uint64 {
+func (d *DisposableWorkerIdAssigner) AssignWorkerId() int64 {
 	node, err := d.workerNodeService.GetByHostname(d.config.GetHostName())
 	if err != nil {
 		panic(err)
@@ -45,10 +45,18 @@ func (d *DisposableWorkerIdAssigner) AssignWorkerId() uint64 {
 
 func (d *DisposableWorkerIdAssigner) buildWorkerNode(config gid.Config) *model.WorkerNode {
 	node := &model.WorkerNode{
-		HostName:   config.GetHostName(),
-		Port:       config.GetPort(),
 		Type:       ACTUAL,
 		LaunchDate: time.Now(),
+	}
+
+	if gid.IsDocker {
+		node.HostName = gid.DockerHost
+		node.Port = gid.DockerPort
+		node.Type = CONTAINER
+	} else {
+		node.Type = ACTUAL
+		node.HostName = gid.HostName
+		node.Port = config.GetPort()
 	}
 
 	return node
