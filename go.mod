@@ -1,4 +1,4 @@
-module gid
+module github.com/zxgangandy/gid
 
 go 1.16
 
