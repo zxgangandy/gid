@@ -1,8 +1,8 @@
 package service
 
 import (
-	"gid/worker/dao"
-	"gid/worker/model"
+	"github.com/zxgangandy/gid/worker/dao"
+	"github.com/zxgangandy/gid/worker/model"
 	"gorm.io/gorm"
 )
 
