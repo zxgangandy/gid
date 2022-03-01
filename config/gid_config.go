@@ -31,7 +31,7 @@ type DefaultUidConfig struct {
 	enableBackward     bool
 }
 
-func newUidConfig(db *gorm.DB, port string) *DefaultUidConfig {
+func New(db *gorm.DB, port string) *DefaultUidConfig {
 	return &DefaultUidConfig{
 		db:                 db,
 		port:               port,
