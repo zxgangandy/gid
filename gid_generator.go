@@ -3,10 +3,8 @@ package gid
 import (
 	"errors"
 	"fmt"
-	"gid/config"
-	"gid/worker"
-
-	//"gid/worker"
+	"github.com/zxgangandy/gid/config"
+	"github.com/zxgangandy/gid/worker"
 	"sync"
 	"time"
 )

@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"gid/worker/model"
+	"github.com/zxgangandy/gid/worker/model"
 	"gorm.io/gorm"
 )
 

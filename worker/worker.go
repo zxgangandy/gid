@@ -1,9 +1,9 @@
 package worker
 
 import (
-	"gid/config"
-	"gid/worker/model"
-	"gid/worker/service"
+	"github.com/zxgangandy/gid/config"
+	"github.com/zxgangandy/gid/worker/model"
+	"github.com/zxgangandy/gid/worker/service"
 	"time"
 )
 
