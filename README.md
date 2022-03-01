@@ -9,7 +9,7 @@ Gid is a distributed id generator tool implements by golang
 ## Features
 - light and easy to use 
 - distributed id generator
-- worker id persists in database instead of cache\memory storage
+- worker id persistence solution (in database instead of cache storage)
 
 
 ## Design
