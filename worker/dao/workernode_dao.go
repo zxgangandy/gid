@@ -19,9 +19,9 @@ func NewWorkerNodeDao(db *gorm.DB) *WorkerNodeDao {
 }
 
 func (w *WorkerNodeDao) GetByHostname(HostName string) (*model.WorkerNode, error) {
-	var node *model.WorkerNode
-	err := w.db.Where("host_name =? ", HostName).Find(node).Error
-	return node, err
+	var node model.WorkerNode
+	err := w.db.Where("host_name =? ", HostName).Find(&node).Error
+	return &node, err
 }
 
 func (w *WorkerNodeDao) Save(node *model.WorkerNode) (bool, error) {
