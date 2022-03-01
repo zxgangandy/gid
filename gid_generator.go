@@ -93,7 +93,7 @@ func (g *DefaultUidGenerator) nextId(epochSeconds, maxBackwardSeconds int64, ena
 }
 
 func (g *DefaultUidGenerator) getCurrentSecond(epochSeconds int64) int64 {
-	currentSeconds := int64(time.Now().Second())
+	currentSeconds := int64(time.Now().Unix())
 	if currentSeconds-epochSeconds > g.bitsAllocator.maxDeltaSeconds {
 		panic("Timestamp bits is exhausted. Refusing UID generate.")
 	}
