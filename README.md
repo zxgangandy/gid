@@ -20,4 +20,4 @@ Gid is a distributed id generator tool implements by golang
 
 
 ## License
-Gid is [MIT licensed](./LICENSE).
+Gid is [MIT licensed](./LICENSE).K
