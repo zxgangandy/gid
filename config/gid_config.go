@@ -36,7 +36,7 @@ func New(db *gorm.DB, port string) *DefaultUidConfig {
 		db:                 db,
 		port:               port,
 		timeBits:           30,
-		workerBits:         10,
+		workerBits:         7,
 		seqBits:            13,
 		epochSeconds:       1550592000000 / 1000,
 		maxBackwardSeconds: 1,
