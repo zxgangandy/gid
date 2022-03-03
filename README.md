@@ -83,4 +83,4 @@ Change the TimeBits, WorkerBits, SeqBits of 'DefaultUidConfig' to get your custo
 
 
 ## License
-Gid is [MIT licensed](./LICENSE).K
+Gid is [MIT licensed](./LICENSE).
