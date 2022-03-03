@@ -74,10 +74,10 @@ id := gid.New(c).GetUID() //Generate ID
 
 ```
 
-### Customization
+## Customization
 
 Change the TimeBits, WorkerBits, SeqBits of 'DefaultUidConfig' to get your customer uid, especially the uid length.
-
+K
 
 ## ChangeLog
 
