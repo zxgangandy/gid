@@ -21,57 +21,57 @@ type UidConfig interface {
 }
 
 type DefaultUidConfig struct {
-	db                 *gorm.DB
-	port               string
-	timeBits           uint32
-	workerBits         uint32
-	seqBits            uint32
-	epochSeconds       int64
-	maxBackwardSeconds int64
-	enableBackward     bool
+	DB                 *gorm.DB
+	Port               string
+	TimeBits           uint32
+	WorkerBits         uint32
+	SeqBits            uint32
+	EpochSeconds       int64
+	MaxBackwardSeconds int64
+	IsEnableBackward   bool
 }
 
 func New(db *gorm.DB, port string) *DefaultUidConfig {
 	return &DefaultUidConfig{
-		db:                 db,
-		port:               port,
-		timeBits:           30,
-		workerBits:         7,
-		seqBits:            13,
-		epochSeconds:       1550592000000 / 1000,
-		maxBackwardSeconds: 1,
-		enableBackward:     true,
+		DB:                 db,
+		Port:               port,
+		TimeBits:           30,
+		WorkerBits:         7,
+		SeqBits:            13,
+		EpochSeconds:       1550592000000 / 1000,
+		MaxBackwardSeconds: 1,
+		IsEnableBackward:   true,
 	}
 }
 
 func (c *DefaultUidConfig) GetDB() *gorm.DB {
-	return c.db
+	return c.DB
 }
 
 func (c *DefaultUidConfig) GetPort() string {
-	return c.port
+	return c.Port
 }
 
 func (c *DefaultUidConfig) GetTimeBits() uint32 {
-	return c.timeBits
+	return c.TimeBits
 }
 
 func (c *DefaultUidConfig) GetWorkerBits() uint32 {
-	return c.workerBits
+	return c.WorkerBits
 }
 
 func (c *DefaultUidConfig) GetSeqBits() uint32 {
-	return c.seqBits
+	return c.SeqBits
 }
 
 func (c *DefaultUidConfig) GetEpochSeconds() int64 {
-	return c.epochSeconds
+	return c.EpochSeconds
 }
 
 func (c *DefaultUidConfig) GetMaxBackwardSeconds() int64 {
-	return c.maxBackwardSeconds
+	return c.MaxBackwardSeconds
 }
 
 func (c *DefaultUidConfig) EnableBackward() bool {
-	return c.enableBackward
+	return c.IsEnableBackward
 }

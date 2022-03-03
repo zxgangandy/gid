@@ -4,6 +4,23 @@ Gid is a distributed id generator tool implements by golang,
 works as a component, and allows users to override workId bits and initialization strategy. As a result, it is much more
 suitable for virtualization environment, such as [docker](https://www.docker.com/).
 
+## Snowflake
+
+**Snowflake algorithm：** 
+An unique id consists of worker node, timestamp and sequence within that timestamp. Usually, it is a 64 bits number(long), and the default bits of that three fields are as follows:
+
+sign(1bit)
+The highest bit is always 0.
+
+delta seconds (30 bits)
+The next 30 bits, represents delta seconds since a customer epoch(2016-05-20). The maximum time will be 34 years.
+
+worker id (20 bits)
+The next 20 bits, represents the worker node id, maximum value will be 1.04 million. UidGenerator uses a build-in database based worker id assigner when startup by default, and it will reuse previous work node id after reboot.
+
+sequence (13 bits)
+the last 13 bits, represents sequence within the one second, maximum is 8192 per second by default.
+
 ## Dependency
 - gorm
 
@@ -12,6 +29,8 @@ suitable for virtualization environment, such as [docker](https://www.docker.com
 - light and easy to use 
 - distributed id generator
 - worker id persistence solution (in database instead of cache storage)
+- support clock moved backwards(can be disabled)
+- support id length customer lower than 64 bits
 
 
 ## Design
