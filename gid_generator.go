@@ -50,6 +50,10 @@ func (g *DefaultUidGenerator) GetUID() int64 {
 	return g.nextId(config.GetEpochSeconds(), config.GetMaxBackwardSeconds(), config.EnableBackward())
 }
 
+// +------+----------------------+----------------+-----------+
+// | sign |     delta seconds    | worker node id | sequence  |
+// +------+----------------------+----------------+-----------+
+//   1bit          30bits              7bits         13bits
 func (g *DefaultUidGenerator) ParseUID(uid int64) string {
 	totalBits := (uint32)(TotalBits)
 	signBits := g.bitsAllocator.signBits
