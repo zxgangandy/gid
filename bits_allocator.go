@@ -5,6 +5,7 @@ import "errors"
 const TotalBits = 1 << 6
 
 type BitsAllocator struct {
+	signBits      uint32
 	timestampBits uint32
 	workerIdBits  uint32
 	sequenceBits  uint32
@@ -33,6 +34,7 @@ func NewBitsAllocator(timestampBits, workerIdBits, sequenceBits uint32) *BitsAll
 	}
 
 	return &BitsAllocator{
+		signBits:        signBits,
 		timestampBits:   timestampBits,
 		workerIdBits:    workerIdBits,
 		sequenceBits:    sequenceBits,

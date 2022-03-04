@@ -10,9 +10,9 @@ import (
 )
 
 type UidGenerator interface {
-	GetUID() uint64
+	GetUID() int64
 
-	ParseUID(uid uint64) (string, error)
+	ParseUID(uid int64) string
 }
 
 type DefaultUidGenerator struct {
@@ -50,8 +50,21 @@ func (g *DefaultUidGenerator) GetUID() int64 {
 	return g.nextId(config.GetEpochSeconds(), config.GetMaxBackwardSeconds(), config.EnableBackward())
 }
 
-func (g *DefaultUidGenerator) ParseUID() (string, error) {
-	return "", nil
+func (g *DefaultUidGenerator) ParseUID(uid int64) string {
+	totalBits := (uint32)(TotalBits)
+	signBits := g.bitsAllocator.signBits
+	timestampBits := g.bitsAllocator.timestampBits
+	workerIdBits := g.bitsAllocator.workerIdBits
+	sequenceBits := g.bitsAllocator.sequenceBits
+
+	// parse UID
+	sequence := (uid << (totalBits - sequenceBits)) >> (totalBits - sequenceBits)
+	workerId := (uid << (timestampBits + signBits)) >> (totalBits - workerIdBits)
+	deltaSeconds := uid >> (workerIdBits + sequenceBits)
+
+	// format as string
+	return fmt.Sprintf("{\"UID\":\"%d\",\"timestamp\":\"%d\",\"workerId\":\"%d\",\"sequence\":\"%d\"}",
+		uid, g.config.GetEpochSeconds()+deltaSeconds, workerId, sequence)
 }
 
 func (g *DefaultUidGenerator) nextId(epochSeconds, maxBackwardSeconds int64, enableBackward bool) int64 {
