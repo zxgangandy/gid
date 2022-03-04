@@ -76,8 +76,18 @@ id := gid.New(c).GetUID() //Generate ID
 
 ## Customization
 
-Change the TimeBits, WorkerBits, SeqBits of 'DefaultUidConfig' to get your customer uid, especially this will change the uid length.
+Change the TimeBits, WorkerBits, SeqBits of 'DefaultUidConfig' to get your customer uid, especially to change the uid length.
 
+```golang
+
+db := GetDB() //Your grom db
+port := GetPort() //Your app port
+c := config.New(db, port)
+c.WorkerBits = 8 // set new WorkerBits value
+c.SeqBits = 15 // set new SeqBits value
+id := gid.New(c).GetUID() //Generate ID
+
+```
 
 ## ChangeLog
 
