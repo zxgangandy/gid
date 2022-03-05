@@ -22,13 +22,13 @@ type UidConfig interface {
 
 type DefaultUidConfig struct {
 	DB                 *gorm.DB
-	Port               string
-	TimeBits           uint32
-	WorkerBits         uint32
-	SeqBits            uint32
-	EpochSeconds       int64
-	MaxBackwardSeconds int64
-	IsEnableBackward   bool
+	Port               string // App port
+	TimeBits           uint32 // time bits
+	WorkerBits         uint32 // worker bits
+	SeqBits            uint32 // sequence bits
+	EpochSeconds       int64  // epoch seconds
+	MaxBackwardSeconds int64  // max backward seconds
+	IsEnableBackward   bool   // enable clock backward
 }
 
 func New(db *gorm.DB, port string) *DefaultUidConfig {

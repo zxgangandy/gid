@@ -10,16 +10,12 @@ type BitsAllocator struct {
 	workerIdBits  uint32
 	sequenceBits  uint32
 
-	/**
-	 * Max value for workId & sequence
-	 */
+	// Max value for workId & sequence
 	maxDeltaSeconds int64
 	maxWorkerId     int64
 	maxSequence     int64
 
-	/**
-	 * Shift for timestamp & workerId
-	 */
+	//Shift for timestamp & workerId
 	timestampShift uint32
 	workerIdShift  uint32
 }
