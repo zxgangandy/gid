@@ -1,5 +1,7 @@
-# Gid
 [In Chinese 中文版](README.zh_cn.md)
+=================================================================================
+# Gid
+
 Gid is a distributed id generator tool implements by golang,
 [Snowflake](https://github.com/twitter/snowflake) based unique ID generator. It
 works as a component, and allows users to override workId bits and initialization strategy. As a result, it is much more
