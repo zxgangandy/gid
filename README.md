@@ -11,10 +11,13 @@ suitable for virtualization environment, such as [docker](https://www.docker.com
 
 **Snowflake algorithm：** 
 An unique id consists of worker node, timestamp and sequence within that timestamp. Usually, it is a 64 bits number(long), and the default bits of that three fields are as follows:
+```xml
 +------+----------------------+----------------+-----------+
 | sign |     delta seconds    | worker node id | sequence  |
 +------+----------------------+----------------+-----------+
   1bit          30bits              7bits         13bits
+```
+
 
 sign(1bit)
 The highest bit is always 0.
