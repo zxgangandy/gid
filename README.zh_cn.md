@@ -1,36 +1,36 @@
 # Gid
-[In Chinese 中文版](README.zh_cn.md)
-Gid is a distributed id generator tool implements by golang,
-[Snowflake](https://github.com/twitter/snowflake) based unique ID generator. It
-works as a component, and allows users to override workId bits and initialization strategy. As a result, it is much more
-suitable for virtualization environment, such as [docker](https://www.docker.com/).
+Gid是一个用golang开发的，
+基于[Snowflake](https://github.com/twitter/snowflake) 分布式id生成器工具。
+
+Gid以组件形式工作在应用项目中, 支持自定义workerId位数和初始化策略, 从而适用于docker等虚拟化环境下实例自动重启、漂移等场景。
 
 ## Snowflake
 
 **Snowflake algorithm：** 
-An unique id consists of worker node, timestamp and sequence within that timestamp. Usually, it is a 64 bits number(long), and the default bits of that three fields are as follows:
+指定机器 & 同一时刻 & 某一并发序列，是唯一的。据此可生成一个64 bits的唯一ID（long）。
+
 +------+----------------------+----------------+-----------+
 | sign |     delta seconds    | worker node id | sequence  |
 +------+----------------------+----------------+-----------+
   1bit          30bits              7bits         13bits
-
+  
 sign(1bit)
-The highest bit is always 0.
+固定1bit符号标识，即生成的UID为正数。
 
 delta seconds (30 bits)
-The next 30 bits, represents delta seconds since a customer epoch(2016-05-20). The maximum time will be 34 years.
+当前时间，相对于时间基点"2016-05-20"的增量值，单位：秒，最多可支持约34年
 
 worker id (20 bits)
-The next 20 bits, represents the worker node id, maximum value will be 1.04 million. UidGenerator uses a build-in database based worker id assigner when startup by default, and it will reuse previous work node id after reboot.
+机器id，最多可支持约104w次机器启动。内置实现为在启动时由数据库分配，重启还可复用相同ip和端口号的worker ID。
 
 sequence (13 bits)
-the last 13 bits, represents sequence within the one second, maximum is 8192 per second by default.
+每秒下的并发序列，13 bits可支持每秒8192个并发。
 
-## Dependency
+## 依赖
 - gorm
 
 
-## Features
+## 功能
 - light and easy to use 
 - distributed id generator
 - worker id persistence solution (in database instead of cache storage)
@@ -38,15 +38,15 @@ the last 13 bits, represents sequence within the one second, maximum is 8192 per
 - support id length customer lower than 64 bits
 
 
-## Design
-- refer to baidu [uid-generator](https://github.com/baidu/uid-generator)
+## 设计
+- 参看百度 [uid-generator](https://github.com/baidu/uid-generator)
 
 
-## Quick  Start
+## 快速开始
 
-### Step1: Install golang, Mysql
+### Step1: 安装 golang, Mysql
 
-### Step2: Create table worker_node
+### Step2: 创建 worker_node表
 
 ```sql
 DROP TABLE IF EXISTS `worker_node`;
@@ -64,11 +64,11 @@ CREATE TABLE `worker_node` (
 
 ```
 
-### Step3: Install Lib
+### Step3: 安装库
 
 go get -u github.com/zxgangandy/gid 
 
-### Step4: Usage
+### Step4: 使用
 
 ```golang
 
@@ -79,9 +79,9 @@ id := gid.New(c).GetUID() //Generate ID
 
 ```
 
-## Customization
+## 定制化
 
-Change the TimeBits, WorkerBits, SeqBits of 'DefaultUidConfig' to get your customer uid, especially shorter uid.
+通过修改DefaultUidConfig的TimeBits, WorkerBits, SeqBits等字段可以定制化你自己的uid, 特别是长度更短的uid.
 
 ```golang
 
@@ -98,4 +98,4 @@ id := gid.New(c).GetUID() //Generate ID
 
 
 ## License
-Gid is [MIT licensed](./LICENSE).
+Gid 的 [MIT licensed](./LICENSE).
