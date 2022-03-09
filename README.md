@@ -1,7 +1,10 @@
 [In Chinese 中文版](README.zh_cn.md)
 =================================================================================
 # Gid
-
+ [![Go Report Card](https://goreportcard.com/badge/github.com/zxgangandy/gid)](https://goreportcard.com/report/github.com/zxgangandy/gid)
+ [![gitmoji](https://img.shields.io/badge/gitmoji-%20%F0%9F%98%9C%20%F0%9F%98%8D-FFDD67.svg?style=flat-square)](https://github.com/carloscuesta/gitmoji)
+ [![License](https://img.shields.io/github/license/zxgangandy/gid?style=flat-square)](/LICENSE)
+ 
 Gid is a distributed id generator tool implements by golang,
 [Snowflake](https://github.com/twitter/snowflake) based unique ID generator. It
 works as a component, and allows users to override workId bits and initialization strategy. As a result, it is much more
