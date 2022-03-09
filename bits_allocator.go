@@ -2,8 +2,10 @@ package gid
 
 import "errors"
 
+//id的总bits数：64
 const TotalBits = 1 << 6
 
+//bits 分配器
 type BitsAllocator struct {
 	signBits      uint32
 	timestampBits uint32
@@ -20,6 +22,7 @@ type BitsAllocator struct {
 	workerIdShift  uint32
 }
 
+//构建一个bits管理器实例
 func NewBitsAllocator(timestampBits, workerIdBits, sequenceBits uint32) *BitsAllocator {
 	var signBits uint32 = 1
 

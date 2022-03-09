@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//worker_node表对应的model结构
 type WorkerNode struct {
 	Id         int64     `gorm:"column:id;primary_key;AUTO_INCREMENT"`
 	HostName   string    `gorm:"column:host_name"`
