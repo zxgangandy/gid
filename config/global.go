@@ -3,16 +3,16 @@ package config
 import "os"
 
 const (
-	EnvKeyHost         = "JPAAS_HOST"
-	EnvKeyPort         = "JPAAS_HTTP_PORT"
-	EnvKeyPortOriginal = "JPAAS_HOST_PORT_8080"
-	ComputerName       = "COMPUTERNAME"
+	EnvKeyHost         = "JPAAS_HOST"           // env key host
+	EnvKeyPort         = "JPAAS_HTTP_PORT"      // env key port
+	EnvKeyPortOriginal = "JPAAS_HOST_PORT_8080" // env key 8080 port
+	ComputerName       = "COMPUTERNAME"         //computer name
 )
 
-var DockerHost string
-var DockerPort string
-var HostName string
-var IsDocker bool
+var DockerHost string // docker host
+var DockerPort string // docker port
+var HostName string   // host name
+var IsDocker bool     // if is docker
 
 func init() {
 	retrieveFromEnv()

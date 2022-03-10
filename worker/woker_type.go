@@ -1,6 +1,6 @@
 package worker
 
 const (
-	CONTAINER = 1
-	ACTUAL    = 2
+	CONTAINER = 1 // container type
+	ACTUAL    = 2 // actual type
 )
