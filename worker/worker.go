@@ -7,15 +7,18 @@ import (
 	"time"
 )
 
+// worker id assigner interface
 type IdAssigner interface {
 	AssignWorkerId() int64
 }
 
+// worker id assigner struct
 type DisposableWorkerIdAssigner struct {
 	workerNodeService service.IWorkerNodeService
 	config            config.UidConfig
 }
 
+//create worker id assigner instance
 func NewWorkerIdAssigner(config config.UidConfig) *DisposableWorkerIdAssigner {
 	workerNodeService := service.NewWorkerNodeService(config.GetDB())
 	return &DisposableWorkerIdAssigner{
@@ -24,6 +27,7 @@ func NewWorkerIdAssigner(config config.UidConfig) *DisposableWorkerIdAssigner {
 	}
 }
 
+//assign a worker id
 func (d *DisposableWorkerIdAssigner) AssignWorkerId() int64 {
 	newNode := d.buildWorkerNode(d.config.GetPort())
 	node, err := d.workerNodeService.GetByHostname(newNode.HostName)
