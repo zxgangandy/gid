@@ -1,6 +1,6 @@
 # Gid
 Gid是一个用golang开发的，
-基于[Snowflake](https://github.com/twitter/snowflake) 分布式id生成器工具。
+基于[Snowflake](https://github.com/twitter/snowflake) 的分布式id生成工具。
 
 Gid以组件形式工作在应用项目中, 支持自定义workerId位数和初始化策略, 从而适用于docker等虚拟化环境下实例自动重启、漂移等场景。
 
@@ -33,8 +33,8 @@ sequence (13 bits)
 
 
 ## 功能
-- light and easy to use 
-- distributed id generator
+- 轻量、简单易用
+- 支持分布式
 - worker id persistence solution (in database instead of cache storage)
 - support clock moved backwards(can be disabled)
 - support id length customer lower than 64 bits
