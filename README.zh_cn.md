@@ -35,9 +35,9 @@ sequence (13 bits)
 ## 功能
 - 轻量、简单易用
 - 支持分布式
-- worker id persistence solution (in database instead of cache storage)
-- support clock moved backwards(can be disabled)
-- support id length customer lower than 64 bits
+- 支持worker id持久化方案(采用存储在数据库中而非缓存)
+- 支持时钟倒拨(也可以取消)
+- 支持定制长度更短的id（小于64位）
 
 
 ## 设计
