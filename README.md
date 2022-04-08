@@ -1,4 +1,7 @@
 [In Chinese 中文版](README.zh_cn.md)
+
+<h4 align="center">A distributed id generator tool in Go.</h4>
+
 =================================================================================
 # Gid
  [![Go Report Card](https://goreportcard.com/badge/github.com/zxgangandy/gid)](https://goreportcard.com/report/github.com/zxgangandy/gid)
