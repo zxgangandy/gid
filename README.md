@@ -1,7 +1,7 @@
 [In Chinese 中文版](README.zh_cn.md)
 
 <h1 align="center">
-  <img src="https://github.com/zxgangandy/gid/blob/main/docs/distributed-unique-id-generation-system.jpeg" alt="Gid" width="400">
+  <img src="https://github.com/zxgangandy/gid/blob/main/docs/distributed-unique-id-generation-system.jpeg" alt="Gid">
 </h1>
 <h4 align="center">A distributed id generator tool in Go.</h4>
 
