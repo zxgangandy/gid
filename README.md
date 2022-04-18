@@ -1,8 +1,7 @@
 [In Chinese 中文版](README.zh_cn.md)
 
 <h1 align="center">
-  <img src="https://github.com/zxgangandy/gid/raw/master/docs/logo.png" alt="Gid" width="200">
-  <br>Gid<br>
+  <img src="https://github.com/zxgangandy/gid/blob/main/docs/logo.png" alt="Gid" width="200">
 </h1>
 <h4 align="center">A distributed id generator tool in Go.</h4>
 
