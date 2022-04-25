@@ -38,7 +38,7 @@ worker id (20 bits)
 The next 20 bits, represents the worker node id, maximum value will be 1.04 million. UidGenerator uses a build-in database based worker id assigner when startup by default, and it will reuse previous work node id after reboot.
 
 sequence (13 bits)
-the last 13 bits, represents sequence within the one second, maximum is 8192 per second by default.
+the last 13 bits, represents sequence within the one second, maximum is 8192 per second（per server）by default.
 
 ## Dependency
 - gorm
