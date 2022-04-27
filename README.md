@@ -49,7 +49,7 @@ the last 13 bits, represents sequence within the one second, maximum is 8192 per
 - distributed id generator
 - worker id persistence solution (in database like mysql instead of cache storage)
 - support clock moved backwards(can be disabled)
-- support id length customer lower than 64 bits
+- support id length customization lower than 64 bits
 
 
 ## Design
