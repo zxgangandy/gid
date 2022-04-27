@@ -1,3 +1,7 @@
+<h1 align="center">
+  <img src="https://github.com/zxgangandy/gid/blob/main/docs/distributed-unique-id-generation-system.jpeg" alt="Gid">
+</h1>
+<h4 align="center">go语言开发的一个分布式id生成工具</h4>
 # Gid
 Gid是一个用golang开发的，
 基于[Snowflake](https://github.com/twitter/snowflake) 的分布式id生成工具。
