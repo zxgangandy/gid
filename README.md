@@ -24,7 +24,7 @@ An unique id consists of worker node, timestamp and sequence within that timesta
 +------+----------------------+----------------+-----------+
 | sign |     delta seconds    | worker node id | sequence  |
 +------+----------------------+----------------+-----------+
-  1bit          30bits              7bits         13bits
+  1bit          30bits              20bits         13bits
 ```
 
 
