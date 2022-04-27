@@ -9,7 +9,7 @@
 # Gid
  [![Go Report Card](https://goreportcard.com/badge/github.com/zxgangandy/gid)](https://goreportcard.com/report/github.com/zxgangandy/gid)
  [![gitmoji](https://img.shields.io/badge/gitmoji-%20%F0%9F%98%9C%20%F0%9F%98%8D-FFDD67.svg?style=flat-square)](https://github.com/carloscuesta/gitmoji)
- [![GoDoc](https://godoc.org/github.com/zxgangandy/gid?status.svg)](http://godoc.org/zxgangandy/gid)
+ [![GoDoc](https://godoc.org/github.com/zxgangandy/gid?status.svg)](http://godoc.org/github.com/zxgangandy/gid)
  [![License](https://img.shields.io/github/license/zxgangandy/gid?style=flat-square)](/LICENSE)
  
 Gid is a distributed id generator tool implements by golang,
