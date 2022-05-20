@@ -40,7 +40,7 @@ the last 13 bits, represents sequence within the one second, maximum is 8192 per
 
 ## Features
 - light and easy to use 
-- distributed id generator
+- distributed id generator at local instead of by service or rpc
 - worker id persistence solution (in database like mysql instead of cache storage)
 - support clock moved backwards(can be disabled)
 - support id length customization lower than 64 bits
