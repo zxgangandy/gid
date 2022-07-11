@@ -9,14 +9,14 @@ import (
 	"time"
 )
 
-// UidGenerator 生成id的接口
+// UidGenerator generator interface
 type UidGenerator interface {
 	GetUID() int64
 
 	ParseUID(uid int64) string
 }
 
-// DefaultUidGenerator 默认的id生成结构
+// DefaultUidGenerator default uid generator
 type DefaultUidGenerator struct {
 	workerIdAssigner worker.IdAssigner
 	bitsAllocator    *BitsAllocator
@@ -27,7 +27,7 @@ type DefaultUidGenerator struct {
 	sequence         int64
 }
 
-// New 创建默认的id生成器实例
+// New create the default uid generator instance
 func New(config config.UidConfig) *DefaultUidGenerator {
 	idAssigner := worker.NewWorkerIdAssigner(config)
 	allocator := NewBitsAllocator(config.GetTimeBits(), config.GetWorkerBits(), config.GetSeqBits())
