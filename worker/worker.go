@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+const (
+	CONTAINER = 1 // container type
+	ACTUAL    = 2 // actual type
+)
+
 // IdAssigner worker id assigner interface
 type IdAssigner interface {
 	AssignWorkerId() int64
