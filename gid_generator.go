@@ -9,14 +9,14 @@ import (
 	"time"
 )
 
-//生成id的接口
+// UidGenerator 生成id的接口
 type UidGenerator interface {
 	GetUID() int64
 
 	ParseUID(uid int64) string
 }
 
-//默认的id生成结构
+// DefaultUidGenerator 默认的id生成结构
 type DefaultUidGenerator struct {
 	workerIdAssigner worker.IdAssigner
 	bitsAllocator    *BitsAllocator
@@ -27,7 +27,7 @@ type DefaultUidGenerator struct {
 	sequence         int64
 }
 
-//创建默认的id生成器实例
+// New 创建默认的id生成器实例
 func New(config config.UidConfig) *DefaultUidGenerator {
 	idAssigner := worker.NewWorkerIdAssigner(config)
 	allocator := NewBitsAllocator(config.GetTimeBits(), config.GetWorkerBits(), config.GetSeqBits())
@@ -48,12 +48,13 @@ func New(config config.UidConfig) *DefaultUidGenerator {
 	}
 }
 
-//生成id
+// GetUID generate id
 func (g *DefaultUidGenerator) GetUID() int64 {
-	config := g.config
-	return g.nextId(config.GetEpochSeconds(), config.GetMaxBackwardSeconds(), config.EnableBackward())
+	c := g.config
+	return g.nextId(c.GetEpochSeconds(), c.GetMaxBackwardSeconds(), c.EnableBackward())
 }
 
+// ParseUID
 // +------+----------------------+----------------+-----------+
 // | sign |     delta seconds    | worker node id | sequence  |
 // +------+----------------------+----------------+-----------+
