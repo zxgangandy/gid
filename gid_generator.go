@@ -48,13 +48,13 @@ func New(config config.UidConfig) *DefaultUidGenerator {
 	}
 }
 
-// GetUID generate id
+// GetUID generate the unique id
 func (g *DefaultUidGenerator) GetUID() int64 {
 	c := g.config
 	return g.nextId(c.GetEpochSeconds(), c.GetMaxBackwardSeconds(), c.EnableBackward())
 }
 
-// ParseUID
+// ParseUID parse the generated unique id then get the meta information
 // +------+----------------------+----------------+-----------+
 // | sign |     delta seconds    | worker node id | sequence  |
 // +------+----------------------+----------------+-----------+
