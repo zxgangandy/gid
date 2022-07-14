@@ -18,13 +18,12 @@ type UidGenerator interface {
 
 // DefaultUidGenerator default uid generator
 type DefaultUidGenerator struct {
-	workerIdAssigner worker.IdAssigner
-	bitsAllocator    *BitsAllocator
-	config           config.UidConfig
-	mutex            sync.Mutex
-	workerId         int64
-	lastSecond       int64
-	sequence         int64
+	bitsAllocator *BitsAllocator
+	config        config.UidConfig
+	mutex         sync.Mutex
+	workerId      int64
+	lastSecond    int64
+	sequence      int64
 }
 
 // New create the default uid generator instance
@@ -34,17 +33,15 @@ func New(config config.UidConfig) *DefaultUidGenerator {
 
 	var workerId int64
 	workerId = idAssigner.AssignWorkerId()
-
 	if workerId > allocator.maxWorkerId {
 		workerId = workerId % allocator.maxWorkerId
 	}
 
 	return &DefaultUidGenerator{
-		workerIdAssigner: idAssigner,
-		bitsAllocator:    allocator,
-		config:           config,
-		workerId:         workerId,
-		sequence:         0,
+		bitsAllocator: allocator,
+		config:        config,
+		workerId:      workerId,
+		sequence:      0,
 	}
 }
 
@@ -72,8 +69,10 @@ func (g *DefaultUidGenerator) ParseUID(uid int64) string {
 	deltaSeconds := uid >> (workerIdBits + sequenceBits)
 
 	// format as string
-	return fmt.Sprintf("{\"UID\":\"%d\",\"timestamp\":\"%d\",\"workerId\":\"%d\",\"sequence\":\"%d\"}",
-		uid, g.config.GetEpochSeconds()+deltaSeconds, workerId, sequence)
+	return fmt.Sprintf(
+		"{\"UID\":\"%d\",\"timestamp\":\"%d\",\"workerId\":\"%d\",\"sequence\":\"%d\"}",
+		uid, g.config.GetEpochSeconds()+deltaSeconds, workerId, sequence,
+	)
 }
 
 func (g *DefaultUidGenerator) nextId(epochSeconds, maxBackwardSeconds int64, enableBackward bool) int64 {
@@ -95,18 +94,14 @@ func (g *DefaultUidGenerator) nextId(epochSeconds, maxBackwardSeconds int64, ena
 		} else {
 			panic("Clock moved backwards. Refused seconds bigger than max backward seconds")
 		}
-	}
-
-	// At the same second, increase sequence
-	if currentSecond == g.lastSecond {
+	} else if currentSecond == g.lastSecond { // At the same second, increase sequence
 		g.sequence = (g.sequence + 1) & g.bitsAllocator.maxSequence
 		// Exceed the max sequence, we wait the next second to generate uid
 		if g.sequence == 0 {
 			currentSecond = g.getNextSecond(g.lastSecond, epochSeconds)
 		}
-
-		// At the different second, sequence restart from zero
 	} else {
+		// At the different second, sequence restart from zero
 		g.sequence = 0
 	}
 
@@ -123,7 +118,6 @@ func (g *DefaultUidGenerator) getCurrentSecond(epochSeconds int64) int64 {
 	}
 
 	return currentSeconds
-
 }
 
 func (g *DefaultUidGenerator) getNextSecond(lastTimestamp, epochSeconds int64) int64 {
