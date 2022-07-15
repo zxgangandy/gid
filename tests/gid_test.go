@@ -44,3 +44,29 @@ func TestCustomGenId(t *testing.T) {
 	end := time.Now().UnixMilli()
 	fmt.Println(end - start)
 }
+
+func TestParseDefaultId(t *testing.T) {
+	dsn := "root:root@tcp(localhost:3306)/jingwei-exchange?charset=utf8&parseTime=True&loc=Local"
+	db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{NamingStrategy: schema.NamingStrategy{
+		SingularTable: true,
+	}})
+	c := config.New(db, "8000")
+	gen := gid.New(c)
+	id := gen.GetUID()
+	fmt.Println(id)
+	fmt.Println(gen.ParseUID(id))
+}
+
+func TestParseCustomId(t *testing.T) {
+	dsn := "root:root@tcp(localhost:3306)/jingwei-exchange?charset=utf8&parseTime=True&loc=Local"
+	db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{NamingStrategy: schema.NamingStrategy{
+		SingularTable: true,
+	}})
+	c := config.New(db, "8000")
+	c.WorkerBits = 10
+	c.SeqBits = 23
+	gen := gid.New(c)
+	id := gen.GetUID()
+	fmt.Println(id)
+	fmt.Println(gen.ParseUID(id))
+}

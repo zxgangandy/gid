@@ -58,19 +58,19 @@ func (g *DefaultUidGenerator) GetUID() int64 {
 //   1bit          30bits              7bits         13bits
 func (g *DefaultUidGenerator) ParseUID(uid int64) string {
 	totalBits := (uint32)(TotalBits)
+	allocateTotalBits := g.bitsAllocator.allocateTotalBits
 	signBits := g.bitsAllocator.signBits
 	timestampBits := g.bitsAllocator.timestampBits
 	workerIdBits := g.bitsAllocator.workerIdBits
 	sequenceBits := g.bitsAllocator.sequenceBits
 
-	// parse UID
-	sequence := (uid << (totalBits - sequenceBits)) >> (totalBits - sequenceBits)
-	workerId := (uid << (timestampBits + signBits)) >> (totalBits - workerIdBits)
-	deltaSeconds := uid >> (workerIdBits + sequenceBits)
+	sequence := uint64(uid<<(totalBits-sequenceBits)) >> (totalBits - sequenceBits)
+	workerId := uint64(uid<<(timestampBits+signBits+totalBits-allocateTotalBits)) >> (totalBits - workerIdBits)
+	deltaSeconds := int64(uint64(uid) >> (workerIdBits + sequenceBits))
 
 	// format as string
 	return fmt.Sprintf(
-		"{\"UID\":\"%d\",\"timestamp\":\"%d\",\"workerId\":\"%d\",\"sequence\":\"%d\"}",
+		"{\"uid\":\"%d\",\"timestamp\":\"%d\",\"workerId\":\"%d\",\"sequence\":\"%d\"}",
 		uid, g.config.GetEpochSeconds()+deltaSeconds, workerId, sequence,
 	)
 }

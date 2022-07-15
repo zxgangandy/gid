@@ -1,16 +1,19 @@
 package gid
 
-import "errors"
+import (
+	"errors"
+)
 
 // TotalBits total bits：64
 const TotalBits = 1 << 6
 
 // BitsAllocator bits allocator
 type BitsAllocator struct {
-	signBits      uint32
-	timestampBits uint32
-	workerIdBits  uint32
-	sequenceBits  uint32
+	signBits          uint32
+	timestampBits     uint32
+	workerIdBits      uint32
+	sequenceBits      uint32
+	allocateTotalBits uint32
 
 	// Max value for workId & sequence
 	maxDeltaSeconds int64
@@ -32,15 +35,16 @@ func NewBitsAllocator(timestampBits, workerIdBits, sequenceBits uint32) *BitsAll
 	}
 
 	return &BitsAllocator{
-		signBits:        signBits,
-		timestampBits:   timestampBits,
-		workerIdBits:    workerIdBits,
-		sequenceBits:    sequenceBits,
-		maxDeltaSeconds: -1 ^ (-1 << timestampBits),
-		maxWorkerId:     -1 ^ (-1 << workerIdBits),
-		maxSequence:     -1 ^ (-1 << sequenceBits),
-		timestampShift:  workerIdBits + sequenceBits,
-		workerIdShift:   sequenceBits,
+		signBits:          signBits,
+		timestampBits:     timestampBits,
+		workerIdBits:      workerIdBits,
+		sequenceBits:      sequenceBits,
+		maxDeltaSeconds:   -1 ^ (-1 << timestampBits),
+		maxWorkerId:       -1 ^ (-1 << workerIdBits),
+		maxSequence:       -1 ^ (-1 << sequenceBits),
+		timestampShift:    workerIdBits + sequenceBits,
+		workerIdShift:     sequenceBits,
+		allocateTotalBits: allocateTotalBits,
 	}
 
 }
