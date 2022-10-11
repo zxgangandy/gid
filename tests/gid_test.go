@@ -39,7 +39,7 @@ func TestCustomGenId(t *testing.T) {
 
 	start := time.Now().UnixMilli()
 	gen := gid.New(c)
-	for i := 0; i < 1000000; i++ {
+	for i := 0; i < 10000000; i++ {
 		_ = gen.GetUID()
 	}
 	end := time.Now().UnixMilli()
